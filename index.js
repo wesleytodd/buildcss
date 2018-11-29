@@ -109,7 +109,7 @@ function createBundler (bundle, log, opts) {
                         files.push(msg.file)
                       }
                       return files
-                    }, [opts.srcFile])
+                    }, [opts.srcfile])
                   })
                 })
               })
