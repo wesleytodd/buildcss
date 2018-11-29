@@ -1,0 +1,38 @@
+{
+  "name": "@wesleytodd/buildcss",
+  "version": "0.0.0",
+  "description": "Opinionated way to build css with postcss",
+  "author": "Wes Todd <wes@wesleytodd.com>",
+  "keywords": [
+    "build",
+    "css",
+    "postcss",
+    "minification"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wesleytodd/buildcss.git"
+  },
+  "scripts": {
+    "test": "standard && mocha",
+    "prepublushOnly": "npm t",
+		"postpublish": "git push origin && git push origin --tags"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.3.1",
+    "chokidar": "^2.0.4",
+    "cssnano": "^4.1.7",
+    "loggerr": "^2.0.1",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "postcss": "^7.0.6",
+    "postcss-import": "^12.0.1",
+    "precss": "^4.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "standard": "^12.0.1"
+  }
+}
