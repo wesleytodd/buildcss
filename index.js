@@ -22,7 +22,7 @@ module.exports = function buildCss (options) {
   opts.outputdir = path.join(opts.basedir, opts.outputdir || 'dist')
   opts.outputFilename = path.relative(opts.basedir, path.join(opts.outputdir, opts.outputFilename || 'index-{{hash}}.css'))
   opts.outputMapFilename = path.relative(opts.basedir, path.join(opts.outputdir, opts.outputMapFilename || 'index-{{hash}}.css.map'))
-  opts.outputUrl = 'index-{{hash}}.css'
+  opts.outputMapUrl = opts.outputMapUrl || 'index-{{hash}}.css.map'
   opts.debug = opts.debug || false
   opts.watch = opts.watch || false
   opts.minify = opts.minify || false
@@ -80,8 +80,8 @@ function createBundler (bundle, log, opts) {
             const out = opts.outputFilename.replace('{{hash}}', hash)
             const map = opts.outputMapFilename.replace('{{hash}}', hash)
 
-            const outUrl = opts.outputUrl.replace('{{hash}}', hash)
-            result.css = result.css.replace(`/*# sourceMappingURL=${opts.outputUrl}`, `/*# sourceMappingURL=${outUrl}`)
+            const outUrl = opts.outputMapUrl.replace('{{hash}}', hash)
+            result.css = result.css.replace(`/*# sourceMappingURL=${path.relative(opts.outputdir, opts.outputMapFilename)}`, `/*# sourceMappingURL=${outUrl}`)
 
             // Write files
             mkdirp(path.dirname(path.join(opts.basedir, out)), (err) => {
