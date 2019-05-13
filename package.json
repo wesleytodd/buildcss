@@ -21,7 +21,7 @@
     "postpublish": "git push origin && git push origin --tags"
   },
   "dependencies": {
-    "autoprefixer": "^9.3.1",
+    "autoprefixer": "^9.5.1",
     "chokidar": "^3.0.0",
     "cssnano": "^4.1.10",
     "loggerr": "^2.0.1",
