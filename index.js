@@ -1,4 +1,3 @@
-// vim: set ft=javascript ts=2 sw=2 expandtab:
 'use strict'
 const path = require('path')
 const fs = require('fs')
@@ -18,11 +17,11 @@ module.exports = function buildCss (options) {
 
   // Set defaults
   opts.basedir = opts.basedir || process.cwd()
-  opts.srcfile = path.join(opts.basedir, opts.srcfile || 'index.css')
-  opts.outputdir = path.join(opts.basedir, opts.outputdir || 'dist')
-  opts.outputFilename = path.relative(opts.basedir, path.join(opts.outputdir, opts.outputFilename || 'index-{{hash}}.css'))
-  opts.outputMapFilename = path.relative(opts.basedir, path.join(opts.outputdir, opts.outputMapFilename || 'index-{{hash}}.css.map'))
-  opts.outputMapUrl = opts.outputMapUrl || 'index-{{hash}}.css.map'
+  opts.srcfile = path.resolve(opts.basedir, opts.srcfile || 'index.css')
+  opts.outputdir = path.resolve(opts.basedir, opts.outputdir || 'dist')
+  opts.outputFilename = path.resolve(opts.outputdir, opts.outputFilename || 'index-{{hash}}.css')
+  opts.outputMapFilename = path.resolve(opts.outputdir, opts.outputMapFilename || 'index-{{hash}}.css.map')
+  opts.outputMapUrl = opts.outputMapUrl || opts.outputMapFilename || 'index-{{hash}}.css.map'
   opts.debug = opts.debug || false
   opts.watch = opts.watch || false
   opts.minify = opts.minify || false
@@ -84,22 +83,22 @@ function createBundler (bundle, log, opts) {
             result.css = result.css.replace(`/*# sourceMappingURL=${path.relative(opts.outputdir, opts.outputMapFilename)}`, `/*# sourceMappingURL=${outUrl}`)
 
             // Write files
-            mkdirp(path.dirname(path.join(opts.basedir, out)), (err) => {
+            mkdirp(path.dirname(out), (err) => {
               if (err) {
                 return reject(err)
               }
 
-              fs.writeFile(path.join(opts.basedir, out), result.css, (err) => {
+              fs.writeFile(out, result.css, (err) => {
                 if (err) {
                   return reject(err)
                 }
-                log.notice(`wrote: ${out}`)
+                log.notice(`wrote: ${path.relative(opts.outputdir, out)}`)
 
-                fs.writeFile(path.join(opts.basedir, map), result.map, (err) => {
+                fs.writeFile(map, result.map, (err) => {
                   if (err) {
                     return reject(err)
                   }
-                  log.notice(`wrote: ${map}`)
+                  log.notice(`wrote: ${path.relative(opts.outputdir, map)}`)
 
                   resolve({
                     outputFile: out,
