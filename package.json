@@ -1,6 +1,6 @@
 {
   "name": "@wesleytodd/buildcss",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Opinionated way to build css with postcss",
   "author": "Wes Todd <wes@wesleytodd.com>",
   "keywords": [
